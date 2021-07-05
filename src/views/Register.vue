@@ -1,5 +1,5 @@
 <template>
-    <div class="container col-6 mx-auto p-4 border-t">
+    <div class="container col-12 col-md-6 col-lg-4 mx-auto p-4 border-t">
         <h1 class="my-4">Register</h1>
         <div v-if="error" class="alert alert-danger border-error" role="alert">
         {{error}}
@@ -29,15 +29,12 @@ export default {
     methods: {
         async handleSubmit() {
             if ( this.email !== '' && this.password !== '' ) {
-                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( (userCredential) => {
-                    const user = userCredential.user;
-                    console.log(user);
-                    this.$router.replace({name: 'Secret'});
+                firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then( () => {
+                    this.$router.replace({name: 'Home'});
                 }).catch( (error) => {
                     this.error = error.message;
                 });
             } else {
-                console.log({email: this.email, pass: this.password });
                 this.error = 'faltan campos';
             }
         },
@@ -79,8 +76,8 @@ export default {
     }
 
     .border-t{
-        border: 5px solid $color-teal;
-        border-radius: 8px;
+        border-radius: 8px;        
+        background-color: $color-light-dark;
     }
 
     .btn-primary-t {
