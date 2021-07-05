@@ -1,6 +1,7 @@
 <template>
   <div class="container home__wrapper">
     <Nav />
+
     <div class="row col-lg-8 mx-auto d-flex justify-content-between border__bottom align-items-center">
       <b-breadcrumb :items="breadcrumb_items"></b-breadcrumb>
       <div class="col-12 col-md-4 col-lg-4 d-md-flex d-lg-flex justify-content-start align-items-center">
@@ -11,6 +12,7 @@
         <b-button class="btn__t"><b-icon-plus></b-icon-plus> Agregar nuevo</b-button>
       </div>
     </div>
+    
     <b-row class="col-lg-8 m-auto mt-4">
       <div class="col-12 mb-3 d-flex justify-content-start align-items-center item__wrapper flex-nowrap" v-for="secret in secrets" :key="secret.id">
         <div class="col-3 d-flex justify-content-start align-items-center">
