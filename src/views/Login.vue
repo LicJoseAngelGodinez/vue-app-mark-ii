@@ -1,6 +1,7 @@
 <template>
-    <div class="container col-6 mx-auto p-4 border-t">
-        <h1 class="my-4">Login</h1>
+    <div class="container col-12 col-md-6 col-lg-4 mx-auto p-4 border-t container__login">
+        <h1 class="my-4">Integra <span class="text__t">Software</span></h1>
+        <h3 class="my-4">Login</h3>
         <div v-if="error" class="alert alert-danger border-error" role="alert">
         {{error}}
         </div>
@@ -30,15 +31,12 @@ export default {
     methods: {
         async handleSubmit() {
             if ( this.email !== '' && this.password !== '' ) {
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then( (userCredential) => {
-                    const user = userCredential.user;
-                    console.log(user);
-                    this.$router.replace({name: 'Secret'});
+                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then( () => {
+                    this.$router.replace({name: 'Home'});
                 }).catch( (error) => {
                     this.error = error.message;
                 });
             } else {
-                console.log({email: this.email, pass: this.password });
                 this.error = 'faltan campos';
             }
         },
@@ -56,7 +54,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
     $color-deep-dark: black;
     $color-dark: #171925;
@@ -79,9 +77,17 @@ export default {
         font-weight: bold !important;
     }
 
+    .text__t {
+        color: $color-teal;
+    }
+
+    .container__login {
+        margin-top: 22vh;
+    }
+
     .border-t{
-        border: 5px solid $color-teal;
         border-radius: 8px;
+        background-color: $color-light-dark;
     }
 
     .btn-primary-t {
@@ -94,6 +100,7 @@ export default {
             color: $color-white;
         }
     }
+
     .border-error {
         border: 4px solid $color-error;
     }

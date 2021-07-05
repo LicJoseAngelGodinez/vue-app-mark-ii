@@ -1,11 +1,14 @@
 <template>
   <div class="container">
-      Logged in
-      <span v-if="loggedIn">Yes</span>
-      <span v-else>No</span>
-      <div>
-          <button @click="signOut" class="btn btn-primary">Sign out</button>
-      </div>
+        <a href="/secret">Secret</a>
+        <div>
+            Logged in
+            <span v-if="loggedIn">Yes</span>
+            <span v-else>No</span>
+        </div>
+        <div>
+            <button @click="signOut" class="btn btn-primary">Sign out</button>
+        </div>
   </div>
 </template>
 
@@ -27,9 +30,7 @@ export default {
     methods: {
         async signOut() {
             firebase.auth().signOut()
-            .then( (response) => {
-                const data = response;
-                console.log(data);
+            .then( () => {
                 this.$router.replace({ name: 'Login' });
             })
             .catch( (error) => {
@@ -39,8 +40,3 @@ export default {
     }
 }
 </script>
-
-
-<style>
-
-</style>
