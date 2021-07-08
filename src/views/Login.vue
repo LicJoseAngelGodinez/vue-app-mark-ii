@@ -56,20 +56,7 @@ export default {
 
 <style lang="scss" scoped>
 
-    $color-deep-dark: black;
-    $color-dark: #171925;
-    $color-light-dark: #262d30;
-    $color-white: #fdfcfc;
-    $color-teal: #71f8b3;
-    $color-teal-arrow: #74f6b9;
-    $color-initials: #f0f4f7; 
-    $color-accepted: #61b792; 
-    $color-rejected: #782035; 
-    $color-inprocess: #c09552; 
-    $color-gray-title: #7e828b;
-    $color-breadcrumb: #a2a3a8;
-    $color-breadcrumb-selected: #65686f;
-    $color-error: red;
+    @import "../styles/GlobalStyles.scss";
 
     h1,
     label,

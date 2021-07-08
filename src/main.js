@@ -4,12 +4,14 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import firebase from 'firebase/app'
+import UUID from 'vue-uuid'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
+Vue.use(UUID);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
