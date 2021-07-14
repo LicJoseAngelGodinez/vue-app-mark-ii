@@ -16,8 +16,12 @@
     <b-row class="m-auto mt-4">
 
       <div>
-          <b-table class="border-bottom-0" :items="table_items" :fields="table_fields">
-          </b-table>
+
+          <div class="table__header">
+            <div class="" v-for="field in table_fields" :key="field.key">
+                <span >{{field.label}}</span>          
+            </div>              
+          </div>
 
           <div class="col-12 mb-3 d-flex justify-content-start align-items-center item__wrapper flex-nowrap" v-for="secret in secrets" :key="secret.id">
             <div class="col">
@@ -38,10 +42,10 @@
             <div class="col">
                 <span class="item__row">{{secret.user}}</span>
             </div>
-            <div class="float-right ms-auto item__icon" @click="showDetail">
+            <div class="ms-auto item__icon" @click="showDetail">
                 <b-icon-file-arrow-down-fill></b-icon-file-arrow-down-fill>
             </div>
-            <div class="float-right ms-auto item__icon" @click="showDetail">
+            <div class="ms-auto item__icon" @click="showDetail">
                 <b-icon-chevron-right></b-icon-chevron-right>
             </div>
         </div>
@@ -114,34 +118,78 @@ export default {
             table_fields: [
                 {
                     key: 'archive',
-                    label: 'Archivo'
+                    label: 'Archivo',
+                    class: 'me-5'
+                },
+                {
+                    key: 'actionsss',
+                    label: '',
+                    class: ''
+                },
+                {
+                    key: 'actiondsss',
+                    label: '',
+                    class: ''
+                },
+                {
+                    key: 'actidsosdnsss',
+                    label: '',
+                    class: ''
                 },
                 {
                     key: 'expedition',
-                    label: 'Expedición'
+                    label: 'Expedición',
+                    class: 'ms-1'
                 },
                 {
                     key: 'quality_information',
-                    label: '% Calidad de Información'
+                    label: '% Calidad de Información',
+                    class: 'ms-4'
+                },
+                {
+                    key: 'actidsonsss',
+                    label: '',
+                    class: ''
                 },
                 {
                     key: 'status',
-                    label: 'Estatus'
+                    label: 'Estatus',
+                    class: 'ms-3'
+                },
+                {
+                    key: 'actionssss',
+                    label: '',
+                    class: ''
+                },
+                {
+                    key: 'actddionsss',
+                    label: '',
+                    class: ''
                 },
                 {
                     key: 'finished',
-                    label: 'Finalización'
+                    label: 'Finalización',
+                    class: 'ms-3'
+                },
+                {
+                    key: 'actisdsonsss',
+                    label: '',
+                    class: ''
+                },
+                {
+                    key: 'actioadansss',
+                    label: '',
+                    class: ''
                 },
                 {
                     key: 'user',
-                    label: 'Usuario'
+                    label: 'Usuario',
+                    class: 'ms-3'
                 },
                 {
                     key: 'actions',
-                    label: 'Acciones'
-                },
-                {
-                    label: ''
+                    label: 'Acciones',
+                    class: ''
                 }
             ],
             table_items: []
@@ -197,7 +245,7 @@ export default {
 
     .item__file {
         font-weight: bold;
-        font-size: 1.4rem;
+        font-size: 1.1rem;
         padding: 1rem;
         color: $color-gray-title;
         text-decoration: underline;
@@ -206,6 +254,12 @@ export default {
     .item__row {
         color: $color-gray-title;
         font-weight: bold;
+    }
+
+    .table__header {
+        color: $color-gray-title;
+        display: flex;
+        justify-content: space-evenly;
     }
 
 </style>
