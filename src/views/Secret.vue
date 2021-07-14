@@ -6,7 +6,7 @@
       <b-breadcrumb :items="breadcrumb_items"></b-breadcrumb>
       <div class="col-12 col-md-4 col-lg-4 d-md-flex d-lg-flex justify-content-start align-items-center">
         <b-icon-card-list font-scale="2" class="bg__teal"></b-icon-card-list> 
-        &nbsp;Listado de Softwares
+        <span class="section__title">&nbsp;Listado de Softwares</span>
       </div>
       <div class="col-12 col-md-4 col-lg-4 d-md-flex d-lg-flex justify-content-end">
         <b-button class="btn__t"><b-icon-plus></b-icon-plus> Agregar nuevo</b-button>
@@ -87,7 +87,7 @@ export default {
     // },
     methods: {
       showDetail() {
-        this.$router.replace({ name: 'Home'});
+        this.$router.replace({ name: 'Creditos'});
       }
     }
 }
@@ -95,20 +95,7 @@ export default {
 
 <style lang="scss">
 
-  $color-deep-dark: black;
-  $color-dark: #171925;
-  $color-light-dark: #262d30;
-  $color-white: #fdfcfc;
-  $color-teal: #71f8b3;
-  $color-teal-arrow: #74f6b9;
-  $color-initials: #f0f4f7; 
-  $color-accepted: #61b792; 
-  $color-rejected: #782035; 
-  $color-inprocess: #c09552; 
-  $color-gray-title: #7e828b;
-  $color-breadcrumb: #a2a3a8;
-  $color-breadcrumb-selected: #65686f;
-  $color-error: red;
+  @import "../styles/GlobalStyles.scss";
 
   h1,
   h5{
@@ -179,5 +166,10 @@ export default {
       color: black;
       border-radius: 5px;
     }
+  }
+
+  .section__title {
+    font-size: 1.2rem;
+    font-weight: bold;
   }
 </style>
