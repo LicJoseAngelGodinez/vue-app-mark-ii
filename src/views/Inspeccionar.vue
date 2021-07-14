@@ -7,7 +7,7 @@
         </div>
 
         <div class="inspeccionar__title">
-            <b-icon-arrow-left font-scale="3" class="btn__t__back"></b-icon-arrow-left>
+            <b-icon-arrow-left font-scale="3" class="btn__t__back" @click="backAction"></b-icon-arrow-left>
             <span class="section__title"><b-icon-search></b-icon-search>&nbsp;Inspeccionar</span>
         </div>
 
@@ -75,6 +75,9 @@ export default {
     methods: {
         showChangeControl() {
             this.$router.replace({ name: 'ControlCambios'});
+        },
+        backAction() {
+            this.$router.replace({ name: 'Creditos'});
         }
     }
 }
@@ -159,6 +162,10 @@ export default {
         font-weight: bold;
         color: $color-teal;
         background-color: $color-white;
+        &:hover {
+            background-color: $color-light-dark;
+            cursor: pointer;
+        }
     }
 
     .inspeccionar__row {
