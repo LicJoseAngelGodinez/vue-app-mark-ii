@@ -1,65 +1,56 @@
 <template>
   <div class="container content__wrapper">
-    <Nav/>
-    <div class="inspeccionar__title__wrapper">
-        <div>
-            <b-breadcrumb :items="breadcrumb_items"></b-breadcrumb>
-        </div>
+    <Nav />
 
-        <div class="inspeccionar__title">
-            <b-icon-arrow-left font-scale="3" class="btn__t__back" @click="backAction"></b-icon-arrow-left>
-            <span class="section__title"><b-icon-search></b-icon-search>&nbsp;Inspeccionar</span>
-        </div>
+    <title-wrapper 
+        :items="breadcrumb_items"
+        title="Inspeccionar"
+        icon="search"
+        :backButton="backButtonEnabled"
+        :backButtonAction="backAction"
+    />
 
-    </div>
+    <search-input
+        icon="search"
+        placeHolder="No Cliente, crédito, ID..."
+        :searchText="searchText"
+        :searchAction="searchName"
+        :keyword="keyword"
+    />
 
-    <div class="inspeccionar__search__wrapper">
-        <div class="inspeccionar__search">
-            <b-icon-search font-scale="2" class="btn__box"></b-icon-search>
-            <input class="inspeccionar__search__npt" type="text" placeholder="No Cliente, crédito, ID...">
-        </div>
-        <label for="">Miguel Me <span>(2 resultados)</span></label>
-    </div>
-
-    <div class="inspeccionar__results__wrapper">
-        <div class="inspeccionar__header">
-            <div class="col d-flex ms-5">Cliente</div>
-            <div class="col d-flex ms-4">RFC</div>
-            <div class="col d-flex ms-4"></div>
-        </div>
-
-        <div class="inspeccionar__contents">
-            <div class="inspeccionar__row">
-
-                <img src="../assets/img/icon.png" alt="" srcset="">
-
-                <label for="" class="row__name">Miguel Mencía Guijón</label>
-                <label for="">MMG100286JSLDRC</label>
-
-                <div class="row__svg">
-                    <b-icon-chevron-right @click="showChangeControl"></b-icon-chevron-right>
-                </div>
-
-            </div>
-        </div>
-    </div>
+    <inspeccionar-table
+        :tableData="filterClients"
+        icon="chevron-right"
+        :clickAction="showChangeControl"
+    />
 
   </div>
 </template>
 
 <script>
 import Nav from '../components/Nav.vue'
+import TitleWrapper from '../components/TitleWrapper.vue'
+import SearchInput from '../components/SearchInput.vue'
+import InspeccionarTable from '../components/InspeccionarTable.vue'
 export default {
     name: 'Inspeccionar',
     components: {
-      Nav
+        Nav,
+        TitleWrapper,
+        SearchInput,
+        InspeccionarTable,
     },
     data() {
         return {
+            backButtonEnabled: true,
+            keyword: "",
+            searchText: "",
+            clients: [],
+            filterClients: [],
             breadcrumb_items: [
                 {
                     text: 'Home',
-                    href: '/Secret'
+                    href: '/'
                 },
                 {
                     text: 'Buscar créditos grupales',
@@ -72,133 +63,62 @@ export default {
             ]
         }
     },
+    async created() {
+          
+      let result = await this.$axios.get('https://reqres.in/api/users?page=1');
+
+      let res = result.data.data;
+
+      this.filterClients = res;
+      this.clients = res;
+    },
     methods: {
         showChangeControl() {
             this.$router.replace({ name: 'ControlCambios'});
         },
         backAction() {
             this.$router.replace({ name: 'Creditos'});
-        }
+        },
+        searchName( e ) {
+
+            let filterClientsLength = 0,
+                auxText = "";
+
+            if ( e.target.value != "" && e.target.value.length >= 3 ) {
+
+                this.keyword = e.target.value;
+
+                let result = {};
+
+                result = this.clients.find(element => {
+                    return element.first_name.toLocaleUpperCase().includes(this.keyword.toLocaleUpperCase());
+                });
+
+                if ( result ) {
+                    this.filterClients = [result];
+                } else {
+                    this.filterClients = this.clients;
+                }
+
+            } else {
+                 this.filterClients = this.clients;
+            }
+
+            filterClientsLength = this.filterClients.length;
+
+            auxText = filterClientsLength === 1 ? 'resultado' : "resultados";
+
+            this.searchText = `${filterClientsLength} ${auxText}`
+
+        },
     }
 }
 </script>
 
-<style lang="scss">
-
-    @import "../styles/GlobalStyles.scss";
+<style lang="scss" scoped>
 
     .content__wrapper {
         padding-top: 5rem;
-    }
-
-    .inspeccionar__title__wrapper {
-        display: flex;
-        flex-direction: column;
-        padding-bottom: 1rem;
-        border-bottom: 1px solid $color-dark;
-    }
-
-    .inspeccionar__search__wrapper {
-        width: 80%;
-        margin: 0 auto;
-        padding: 1rem 0;
-        display: flex;
-        flex-direction: column;
-        .inspeccionar__search{
-            width: 100%;
-            display: flex;
-            justify-content: left;
-            gap: 1.5rem;
-            align-items: center;
-            margin: 0 auto;
-            background-color: $color-deep-dark;
-            padding: .5rem;
-            border: 4px solid $color-breadcrumb-selected;
-            border-radius: 10px;
-            input {
-                width: 100%;
-                background-color: $color-deep-dark;
-                font-size: 1.2rem;
-                border: none;
-                color: $color-breadcrumb-selected;
-                &:focus{
-                    outline: none;
-                }
-            }
-            svg {
-                padding: .5rem;
-            }
-        }
-        label {
-            margin-right: 100%;
-            display: flex;
-            width: max-content;
-            gap: .5rem;
-            padding: 1rem 0;
-        }
-    }
-
-    .inspeccionar__header {
-        width: 80%;
-        margin: 0 auto;
-        display: flex;
-        padding: 1rem 0;
-    }
-
-    .inspeccionar__title {
-        display: flex;
-        justify-content: left;
-        gap: 1rem;
-        align-items: center;
-    }
-
-    .section__title svg {
-        color: $color-teal;
-    }
-
-    .btn__t__back {
-        border-radius: 50%;
-        padding: .5rem;
-        font-weight: bold;
-        color: $color-teal;
-        background-color: $color-white;
-        &:hover {
-            background-color: $color-light-dark;
-            cursor: pointer;
-        }
-    }
-
-    .inspeccionar__row {
-        width: 80%;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        background-color: $color-light-dark;
-        color: $color-gray-title;
-        border-radius: 10px;
-        padding: .7rem;
-        justify-content: space-around;
-        img {
-            background-color: $color-white;
-            border-radius: 50%;
-            margin: 0 .2rem;
-            max-height: 3rem;
-        }
-    }
-    .row__svg {
-        align-self: center;
-        width: 40%;
-        text-align: end;
-        svg {
-            cursor: pointer;
-            &:hover {
-                color: $color-teal;
-            }
-        }
-    }
-
-    .row__name {
-        margin-left: -1.5rem;
     }
 
 </style>

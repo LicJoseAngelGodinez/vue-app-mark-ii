@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
-import Secret from '../views/Secret.vue'
 import Creditos from '../views/Creditos.vue'
 import Inspeccionar from '../views/Inspeccionar.vue'
 import ControlCambios from '../views/ControlCambios.vue'
@@ -15,14 +14,6 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home,
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {
     path: '/login',
     name: 'Login',
     component: Login
@@ -33,9 +24,9 @@ const routes = [
     component: Register
   },
   {
-    path: '/secret',
-    name: 'Secret',
-    component: Secret,
+    path: '/',
+    name: 'Home',
+    component: Home,
     meta: {
       requiresAuth: true
     }

@@ -2,75 +2,46 @@
   <div class="container content__wrapper">
     <Nav/>
 
-    <div class="row mx-auto d-flex justify-content-between border__bottom align-items-center">
-      <b-breadcrumb :items="breadcrumb_items"></b-breadcrumb>
-      <div class="col-12 col-md-4 col-lg-4 d-md-flex d-lg-flex justify-content-start align-items-center">
-        <span class="section__title">&nbsp;Buscar Créditos Grupales</span>
-      </div>
-      <div class="col-12 col-md-4 col-lg-4 d-md-flex d-lg-flex justify-content-end" @click="showDetail">
-        <b-button class="btn__t"><b-icon-search></b-icon-search> Inspeccionar</b-button>
-      </div>
-    </div>
+    <title-wrapper 
+        :items="breadcrumb_items"
+        title="Buscar Créditos Grupales"
+        :button="button"
+        :buttonAction="showDetail"
+        buttonActionText="Inspeccionar"
+        buttonActionIcon="search"
+    />
 
-
-    <b-row class="m-auto mt-4">
-
-      <div>
-
-          <div class="table__header">
-            <div class="" v-for="field in table_fields" :key="field.key">
-                <span >{{field.label}}</span>          
-            </div>              
-          </div>
-
-          <div class="col-12 mb-3 d-flex justify-content-start align-items-center item__wrapper flex-nowrap" v-for="secret in secrets" :key="secret.id">
-            <div class="col">
-                <span class="item__file">{{secret.file}}</span>
-            </div>
-            <div class="col">
-                <span class="item__row">{{secret.expedition}}</span>
-            </div>
-            <div class="col">
-                <span class="item__row">{{secret.infor_quality}}</span>
-            </div>
-            <div class="col">
-                <div v-html=checkStatus(secret.status)></div>
-            </div>
-            <div class="col">
-                <span class="item__row">{{secret.finished}}</span>
-            </div>
-            <div class="col">
-                <span class="item__row">{{secret.user}}</span>
-            </div>
-            <div class="ms-auto item__icon" @click="showDetail">
-                <b-icon-file-arrow-down-fill></b-icon-file-arrow-down-fill>
-            </div>
-            <div class="ms-auto item__icon" @click="showDetail">
-                <b-icon-chevron-right></b-icon-chevron-right>
-            </div>
-        </div>
-      </div>
-
-    </b-row>
-
+    <creditos-table
+        iconDownload="file-arrow-down-fill"
+        iconDetail="chevron-right"
+        :detailAction="showDetail"
+        :table_fields="table_fields"
+        :tableData="secrets"
+        :checkStatus="checkStatus"
+    />
     
   </div>
 </template>
 
 <script>
 import Nav from '../components/Nav.vue'
+import TitleWrapper from '../components/TitleWrapper.vue'
+import CreditosTable from '../components/CreditosTable.vue'
 
 export default {
     name: 'Creditos',
     components: {
-      Nav
+      Nav,
+      TitleWrapper,
+      CreditosTable,
     },
     data() {
         return {
+            button: true,
             breadcrumb_items: [
                 {
                     text: 'Home',
-                    href: '/Secret'
+                    href: '/'
                 },
                 {
                     text: 'Buscar créditos grupales',
@@ -80,39 +51,43 @@ export default {
             secrets: [
                 {
                     id: this.$uuid.v4(),
-                    file: 'clientes_credito.xml',
                     expedition: '02/08/20',
                     infor_quality: '90%',
                     status: 1,
                     finished: '02/08/21',
-                    user: '@goytia',
+                    email: '',
+                    first_name: '',
+                    last_name: '',
                 },
                 {
                     id: this.$uuid.v4(),
-                    file: 'clientes_credito.xml',
                     expedition: '12/08/20',
                     infor_quality: '55%',
                     status: 2,
                     finished: '12/08/21',
-                    user: '@goytia',
+                    email: '',
+                    first_name: '',
+                    last_name: '',
                 },
                 {
                     id: this.$uuid.v4(),
-                    file: 'clientes_credito.xml',
                     expedition: '24/08/20',
                     infor_quality: '87%',
                     status: 1,
                     finished: '24/08/21',
-                    user: '@goytia',
+                    email: '',
+                    first_name: '',
+                    last_name: '',
                 },
                 {
                     id: this.$uuid.v4(),
-                    file: 'clientes_credito.xml',
                     expedition: '30/08/20',
                     infor_quality: '88%',
                     status: 3,
                     finished: '30/08/21',
-                    user: '@itacacapital',
+                    email: '',
+                    first_name: '',
+                    last_name: '',
                 }
             ],
             table_fields: [
@@ -195,6 +170,18 @@ export default {
             table_items: []
         }
     },
+    async created() {
+      
+      let result = await this.$axios.get('https://reqres.in/api/users?page=1');
+
+      let res = result.data.data;
+
+      this.secrets.forEach( (el, index) => {
+          el.email = res[index].email;
+          el.first_name = res[index].first_name;
+          el.last_name = res[index].last_name;
+      });
+    },
     methods: {
       showDetail() {
         this.$router.replace({ name: 'Inspeccionar'});
@@ -226,40 +213,10 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-    @import "../styles/GlobalStyles.scss";
+<style lang="scss" scoped>
 
     .content__wrapper {
         padding-top: 5rem;
-    }
-
-    .section__title {
-        font-size: 1.2rem;
-        font-weight: bold;
-    }
-
-    .breadcrumb-item a {
-        color: $color-white;
-    }
-
-    .item__file {
-        font-weight: bold;
-        font-size: 1.1rem;
-        padding: 1rem;
-        color: $color-gray-title;
-        text-decoration: underline;
-    }
-
-    .item__row {
-        color: $color-gray-title;
-        font-weight: bold;
-    }
-
-    .table__header {
-        color: $color-gray-title;
-        display: flex;
-        justify-content: space-evenly;
     }
 
 </style>
