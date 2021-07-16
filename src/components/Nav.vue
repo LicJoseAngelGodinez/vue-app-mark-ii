@@ -12,7 +12,6 @@
                             <em>Miguel Mencía</em>
                             <em class="initials__circle">MM</em>
                         </template>
-                        <b-dropdown-item >Profile</b-dropdown-item>
                         <b-dropdown-item @click="signOut">Sign Out</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>

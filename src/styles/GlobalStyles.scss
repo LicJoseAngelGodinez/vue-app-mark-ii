@@ -13,3 +13,17 @@ $color-gray-title: #7e828b;
 $color-breadcrumb: #a2a3a8;
 $color-breadcrumb-selected: #65686f;
 $color-error: red;
+
+.section__title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    svg {
+        color: $color-teal;
+    }
+}
+
+.item__wrapper {
+    background-color: $color-light-dark;
+    border-radius: 8px;
+    padding: .5rem 1rem;
+}

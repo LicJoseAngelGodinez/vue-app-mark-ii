@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-        <a href="/secret">Secret</a>
+        <a href="/">Home</a>
         <div>
             Logged in
             <span v-if="loggedIn">Yes</span>
