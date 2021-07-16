@@ -1,5 +1,5 @@
 <template>
-    <div class="container col-12 col-md-6 col-lg-4 mx-auto p-4 border-t">
+    <div class="container col-12 col-md-6 col-lg-4 mx-auto p-4 border-t container__register">
         <h1 class="my-4">Register</h1>
         <div v-if="error" class="alert alert-danger border-error" role="alert">
         {{error}}
@@ -52,18 +52,32 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
     @import "../styles/GlobalStyles.scss";
 
     h1,
     label,
     button {
-        font-weight: bold !important;
+        font-weight: bold;
+    }
+
+    .container__register {
+        margin-top: 22vh;
+    }
+
+    h1,
+    label,
+    button {
+        font-weight: bold;
+    }
+
+    .text__t {
+        color: $color-teal;
     }
 
     .border-t{
-        border-radius: 8px;        
+        border-radius: 8px;
         background-color: $color-light-dark;
     }
 
@@ -77,6 +91,7 @@ export default {
             color: $color-white;
         }
     }
+
     .border-error {
         border: 4px solid $color-error;
     }

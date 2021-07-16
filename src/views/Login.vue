@@ -17,6 +17,8 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary-t mt-4 w-100">Log in</button>
+            
+            <div class="register__action" @click="goToRegister">Registro</div>
         </form>
     </div>
 </template>
@@ -42,7 +44,10 @@ export default {
         },
         clearError() {
             this.error = '';
-        }
+        },
+        goToRegister() {
+            this.$router.replace({name: "Register"});
+        },
     },
     data() {
         return {
@@ -90,6 +95,18 @@ export default {
 
     .border-error {
         border: 4px solid $color-error;
+    }
+
+    .register__action {
+        margin: 1rem auto 0 auto;
+        font-weight: bold;
+        &:hover {
+            width: 50%;
+            border-radius: 10px;
+            background-color: $color-teal;
+            color: $color-dark;
+            cursor: pointer;
+        }
     }
 
 </style>
